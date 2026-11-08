@@ -1,45 +1,61 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#0e1a2b">
-  <title>انتخاب کشور</title>
-
-  <!-- Telegram Mini App SDK (اگر خارج از تلگرام باز شود، برنامه همچنان کار می‌کند) -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>شبیه‌ساز مدیریت کشور</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
+<main id="app">
+  <section id="screen-select" class="screen active">
+    <header class="hero">
+      <h1>کدام کشور را اداره می‌کنی؟</h1>
+      <p>۳۰ کشور، با داده‌های اقتصادی ۲۰۲۵</p>
+    </header>
+    <div id="country-list" class="country-list"></div>
+  </section>
 
-  <main class="app">
-    <header class="app-header">
-      <h1 class="title">انتخاب کشور 🌍</h1>
-      <p class="subtitle">کشوری را برای شروع بازی انتخاب کنید</p>
+  <section id="screen-game" class="screen">
+    <header class="country-head">
+      <span id="c-flag" class="flag"></span>
+      <div><h1 id="c-name"></h1><p id="c-capital"></p></div>
+      <span id="date" class="date"></span>
     </header>
 
-    <section id="country-grid" class="grid" aria-label="فهرست کشورها"></section>
-  </main>
+    <div id="stats" class="stats"></div>
 
-  <!-- پنل تأیید -->
-  <div id="confirm-modal" class="modal" hidden>
-    <div class="modal-backdrop" data-close></div>
-    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
-      <div class="sheet-grip" aria-hidden="true"></div>
-      <div class="sheet-flag" id="confirm-flag"></div>
-      <h2 class="sheet-title" id="confirm-title"></h2>
-      <p class="sheet-text">آیا مطمئن هستید که می‌خواهید بازی را با این کشور شروع کنید؟</p>
-      <div class="sheet-actions">
-        <button type="button" class="btn btn-primary" id="confirm-yes">تأیید و شروع</button>
-        <button type="button" class="btn btn-ghost" id="confirm-no">انصراف</button>
+    <h2>نقشه جهان</h2>
+    <div class="map-wrap">
+      <div id="map"></div>
+      <div class="map-ctrl">
+        <button id="zoom-in" aria-label="بزرگ‌نمایی">+</button>
+        <button id="zoom-out" aria-label="کوچک‌نمایی">−</button>
       </div>
     </div>
+
+    <h2>گذر زمان</h2>
+    <div class="time-panel">
+      <button class="btn" data-months="6">۶ ماه</button>
+      <button class="btn" data-months="12">۱ سال</button>
+      <button class="btn" data-months="24">۲ سال</button>
+    </div>
+
+    <h2>اخبار</h2>
+    <ul id="news-list" class="news"></ul>
+  </section>
+</main>
+
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <h2 id="modal-title"></h2>
+    <ul id="modal-rows" class="report"></ul>
+    <button id="modal-close" class="btn primary">ادامه</button>
   </div>
+</div>
 
-  <!-- پیام کوتاه -->
-  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-
-  <script src="script.js"></script>
+<script src="data/countries.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
